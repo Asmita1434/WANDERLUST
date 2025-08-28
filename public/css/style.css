@@ -41,9 +41,15 @@ body {
    justify-content: center;
 }
 
+
 .f-info-socials i {
    margin-right: 1rem;
    font-size: 1.5rem;
+   cursor: pointer;
+      color:rgb(69, 68, 68);
+   &&:hover{
+      color: #fe424d;
+   }
 }
 
 
@@ -55,6 +61,7 @@ body {
    flex-wrap: wrap;
    justify-content: center;
    align-items: space-evenly;
+   
 }
 
 .listing-link {
