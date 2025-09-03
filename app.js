@@ -19,6 +19,7 @@ const passport = require("passport");
 const LocalStartegy = require("passport-local");
 const User = require("./models/user.js");
 
+// Routes
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
@@ -38,6 +39,7 @@ async function main() {
     await mongoose.connect(dbUrl);
 }
 
+// EJS Setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -45,6 +47,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+// Session Store
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
@@ -72,6 +75,7 @@ const sessionOptions = {
 app.use(session(sessionOptions));
 app.use(flash());
 
+// Passport Setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStartegy(User.authenticate()));
@@ -79,6 +83,7 @@ passport.use(new LocalStartegy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Flash + Current User Middleware
 app.use((req,res,next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
@@ -86,35 +91,26 @@ app.use((req,res,next) => {
     next();
 })
 
-// app.get("/demouser", async (req,res)=>{
-//     let fakeUser = new User({
-//         email: "student@gmail.com",
-//         username: "delta-student"
-//     });
-//    let registerUser = await User.register(fakeUser, "helloworld"); 
-//    res.send(registeredUser);
-// })
-
-// app.get("/", (req, res) => {
-//     res.send("Hi, I am root");
-// });
-
-
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/",userRouter);
 
+// Routes
+app.get("/", (req, res) => {
+    res.redirect("/listings");// Redirect root to Explore page
+});
 
-
+// 404 Handler
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Page not Found"));
 });
 
+// Error Handler
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something went wrong!" } = err;
     res.status(statusCode).render("error.ejs", { message });
-    // res.status(statusCode).send(message);
+    
 });
 
 app.listen(8080, () => {
