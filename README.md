@@ -21,43 +21,29 @@ Wanderlust is a full-stack web application inspired by Airbnb. It allows users t
 📱 Responsive UI: Works well on desktop and mobile devices.
 
 ## 🛠️ Tech Stack
-Frontend
+Frontend-
 
 EJS (Embedded JavaScript Templates)
 
 HTML5, CSS3, Bootstrap
 
-Backend
+Backend-
 
 Node.js, Express.js
 
-Database
+Database-
 
 MongoDB with Mongoose ORM
 
-Authentication
+Authentication-
 
 Passport.js for login/signup functionality
 
-Other Tools
+Other Tools-
 
 Cloudinary for image hosting
 
 Render for deployment
-
-📂 Project Structure
-WANDERLUST/
-│── public/          # Static assets (CSS, JS, Images)
-│── views/           # EJS templates for frontend
-│── routes/          # Express route files
-│── models/          # Mongoose schemas/models
-│── controllers/     # Business logic for routes
-│── utils/           # Utility functions (e.g., middleware)
-│── app.js           # Main server file
-│── package.json     # Project dependencies
-│── .env             # Environment variables
-│── README.md        # Project documentation
-
 
 ## 📌 Future Enhancements
 
